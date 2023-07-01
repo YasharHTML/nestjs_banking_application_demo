@@ -38,16 +38,16 @@ gateway-dockerize:
   image: docker:latest
   stage: dockerize
   script:
-    - docker build -t gateway --build-args microservice=gateway .
+    - docker build -t gateway --build-arg microservice=gateway .
 
 customer-dockerize:
   image: docker:latest
   stage: dockerize
   script:
-    - docker build -t customer --build-args microservice=customer .
+    - docker build -t customer --build-arg microservice=customer .
 
 auth-dockerize:
   image: docker:latest
   stage: dockerize
   script:
-    - docker build -t auth --build-args microservice=auth .
+    - docker build -t auth --build-arg microservice=auth .
