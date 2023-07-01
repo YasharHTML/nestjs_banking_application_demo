@@ -16,7 +16,7 @@ export class CustomerController {
   }
 
   @MessagePattern('customer.createCustomer')
-  createCustomer(@Payload() { customer }: { customer: CustomerCreationDto }) {
-    return this.customerService.createCustomer(customer);
+  createCustomer(@Payload() { customerDto }: { customerDto: CustomerCreationDto }) {
+    return this.customerService.createCustomer(customerDto);
   }
 }

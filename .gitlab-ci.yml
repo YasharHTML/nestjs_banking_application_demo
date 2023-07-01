@@ -1,0 +1,53 @@
+stages:
+  - build
+  - dockerize
+  - deploy
+
+image: node:lts-alpine
+services:
+  - docker:dind
+
+gateway-build:
+  stage: build
+  script:
+    - yarn install
+    - yarn build gateway
+  artifacts:
+    paths:
+      - dist/apps/gateway
+
+customer-build:
+  stage: build
+  script:
+    - yarn install
+    - yarn build customer
+  artifacts:
+    paths:
+      - dist/apps/customer
+
+auth-build:
+  stage: build
+  script:
+    - yarn install
+    - yarn build auth
+  artifacts:
+    paths:
+      - dist/apps/auth
+
+gateway-dockerize:
+  image: docker:latest
+  stage: dockerize
+  script:
+    - docker build -t gateway --build-args microservice=gateway .
+
+customer-dockerize:
+  image: docker:latest
+  stage: dockerize
+  script:
+    - docker build -t customer --build-args microservice=customer .
+
+auth-dockerize:
+  image: docker:latest
+  stage: dockerize
+  script:
+    - docker build -t auth --build-args microservice=auth .
