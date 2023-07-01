@@ -37,17 +37,26 @@ auth-build:
 gateway-dockerize:
   image: docker:latest
   stage: dockerize
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t gateway --build-arg microservice=gateway .
+    - docker build -t $CI_REGISTRY_IMAGE/gateway:latest --build-arg microservice=gateway .
+    - docker push $CI_REGISTRY_IMAGE/gateway:latest
 
 customer-dockerize:
   image: docker:latest
   stage: dockerize
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t customer --build-arg microservice=customer .
+    - docker build -t $CI_REGISTRY_IMAGE/customer:latest --build-arg microservice=customer .
+    - docker push $CI_REGISTRY_IMAGE/customer:latest
 
 auth-dockerize:
   image: docker:latest
   stage: dockerize
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build -t auth --build-arg microservice=auth .
+    - docker build -t $CI_REGISTRY_IMAGE/auth:latest --build-arg microservice=auth .
+    - docker push $CI_REGISTRY_IMAGE/auth:latest
