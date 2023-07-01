@@ -10,7 +10,7 @@ services:
 gateway-build:
   stage: build
   script:
-    - yarn install
+    - yarn
     - yarn build gateway
   artifacts:
     paths:
@@ -19,7 +19,7 @@ gateway-build:
 customer-build:
   stage: build
   script:
-    - yarn install
+    - yarn
     - yarn build customer
   artifacts:
     paths:
@@ -28,7 +28,7 @@ customer-build:
 auth-build:
   stage: build
   script:
-    - yarn install
+    - yarn
     - yarn build auth
   artifacts:
     paths:

@@ -25,6 +25,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/microservices": "^10.0.4",
     "@nestjs/platform-express": "^9.0.0",
+    "dotenv": "^16.3.1",
     "firebase-admin": "^11.9.0",
     "nats": "^2.15.1",
     "nestjs-stripe": "^1.0.0",
