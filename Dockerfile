@@ -5,7 +5,7 @@ WORKDIR /app
 ARG microservice=gateway
 
 COPY package.json .
-COPY dist/apps/{microservice} ./dist/apps/{microservice}
+COPY dist/apps/${microservice} ./dist/apps/${microservice}
 
 RUN yarn install --prod
 
