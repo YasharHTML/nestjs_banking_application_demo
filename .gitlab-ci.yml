@@ -7,6 +7,9 @@ image: node:lts-alpine
 services:
   - docker:dind
 
+variables:
+  KUBE_CONTEXT: YasharHTML_STUD/nestjs_banking:kube-agent
+
 gateway-build:
   stage: build
   script:
@@ -60,3 +63,10 @@ auth-dockerize:
   script:
     - docker build -t $CI_REGISTRY_IMAGE/auth:latest --build-arg microservice=auth .
     - docker push $CI_REGISTRY_IMAGE/auth:latest
+
+gateway-deploy:
+  image: bitnami/kubectl:latest
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context "$KUBE_CONTEXT"
+    - kubectl apply -f k8s/gateway/deployment.yaml -f k8s/gateway/svc.yaml
