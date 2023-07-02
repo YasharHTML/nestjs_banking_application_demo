@@ -9,4 +9,6 @@ COPY dist/apps/${microservice} ./dist/apps/${microservice}
 
 RUN yarn install --prod
 
-CMD [ "node", "dist/apps/${microservice}/main" ]
+RUN ls -Rax /dist
+
+CMD [ "node", "./dist/apps/${microservice}/main" ]
