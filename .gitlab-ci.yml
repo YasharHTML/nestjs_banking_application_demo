@@ -102,4 +102,28 @@ gateway-deploy:
   script:
     - kubectl config get-contexts
     - kubectl config use-context "$KUBE_CONTEXT"
+    - kubectl delete deployment gateway-deploy
+    - kubectl delete svc gateway-svc
     - kubectl apply -f k8s/gateway/deployment.yaml -f k8s/gateway/svc.yaml
+
+auth-deploy:
+  image:
+    name: bitnami/kubectl:1.14
+    entrypoint: ['']
+  stage: deploy
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context "$KUBE_CONTEXT"
+    - kubectl delete deployment auth-deploy
+    - kubectl apply -f k8s/auth/deployment.yaml
+
+customer-deploy:
+  image:
+    name: bitnami/kubectl:1.14
+    entrypoint: ['']
+  stage: deploy
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context "$KUBE_CONTEXT"
+    - kubectl delete deployment customer-deploy
+    - kubectl apply -f k8s/customer/deployment.yaml

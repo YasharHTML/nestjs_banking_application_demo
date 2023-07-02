@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-deploy
+  template:
+    metadata:
+      labels:
+        app: auth-deploy
+    spec:
+      containers:
+        - name: auth-deploy
+          image: registry.gitlab.com/yasharhtml_stud/nestjs_banking/auth
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+          env:
+            - name: FIREBASE_CLIENT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: FIREBASE-CLIENT-EMAIL
+                  name: firebase-secret
+            - name: FIREBASE_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: FIREBASE-PRIVATE-KEY
+                  name: firebase-secret
+            - name: FIREBASE_PROJECT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: FIREBASE-PROJECT-ID
+                  name: firebase-secret
+            
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: STRIPE-SECRET-KEY
+                  name: stripe-secret
+            - name: STRIPE_API_VERSION
+              valueFrom:
+                secretKeyRef:
+                  key: STRIPE-API-VERSION
+                  name: stripe-secret
+            
+            - name: NATS_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: NATS-URL
+                  name: nats-config-map
+                
