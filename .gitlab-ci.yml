@@ -15,6 +15,7 @@ gateway-build:
     changes:
       - 'apps/**'
       - 'libs/**'
+      - 'Dockerfile'
   stage: build
   script:
     - yarn
@@ -28,6 +29,7 @@ customer-build:
     changes:
       - 'apps/**'
       - 'libs/**'
+      - 'Dockerfile'
   stage: build
   script:
     - yarn
@@ -41,6 +43,7 @@ auth-build:
     changes:
       - 'apps/**'
       - 'libs/**'
+      - 'Dockerfile'
   stage: build
   script:
     - yarn
