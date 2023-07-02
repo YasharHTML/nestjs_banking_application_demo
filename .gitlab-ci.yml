@@ -13,8 +13,8 @@ variables:
 gateway-build:
   only:
     changes:
-      - "apps/**"
-      - "lib/**"
+      - 'apps/**'
+      - 'libs/**'
   stage: build
   script:
     - yarn
@@ -26,8 +26,8 @@ gateway-build:
 customer-build:
   only:
     changes:
-      - "apps/**"
-      - "lib/**"
+      - 'apps/**'
+      - 'libs/**'
   stage: build
   script:
     - yarn
@@ -39,8 +39,8 @@ customer-build:
 auth-build:
   only:
     changes:
-      - "apps/**"
-      - "lib/**"
+      - 'apps/**'
+      - 'libs/**'
   stage: build
   script:
     - yarn
@@ -52,7 +52,9 @@ auth-build:
 gateway-dockerize:
   only:
     changes:
-      - "Dockerfile"
+      - 'apps/**'
+      - 'libs/**'
+      - 'Dockerfile'
   image: docker:latest
   stage: dockerize
   before_script:
@@ -64,7 +66,9 @@ gateway-dockerize:
 customer-dockerize:
   only:
     changes:
-      - "Dockerfile"
+      - 'apps/**'
+      - 'libs/**'
+      - 'Dockerfile'
   image: docker:latest
   stage: dockerize
   before_script:
@@ -76,7 +80,9 @@ customer-dockerize:
 auth-dockerize:
   only:
     changes:
-      - "Dockerfile"
+      - 'apps/**'
+      - 'libs/**'
+      - 'Dockerfile'
   image: docker:latest
   stage: dockerize
   before_script:
@@ -86,7 +92,9 @@ auth-dockerize:
     - docker push $CI_REGISTRY_IMAGE/auth:latest
 
 gateway-deploy:
-  image: bitnami/kubectl:latest
+  image:
+    name: bitnami/kubectl:1.14
+    entrypoint: ['']
   stage: deploy
   script:
     - kubectl config get-contexts
