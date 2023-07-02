@@ -67,8 +67,6 @@ auth-dockerize:
 gateway-deploy:
   image: bitnami/kubectl:latest
   stage: deploy
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
     - kubectl config get-contexts
     - kubectl config use-context "$KUBE_CONTEXT"
