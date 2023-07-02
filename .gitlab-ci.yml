@@ -11,6 +11,10 @@ variables:
   KUBE_CONTEXT: YasharHTML_STUD/nestjs_banking:kube-agent
 
 gateway-build:
+  only:
+    changes:
+      - "apps/**"
+      - "lib/**"
   stage: build
   script:
     - yarn
@@ -20,6 +24,10 @@ gateway-build:
       - dist/apps/gateway
 
 customer-build:
+  only:
+    changes:
+      - "apps/**"
+      - "lib/**"
   stage: build
   script:
     - yarn
@@ -29,6 +37,10 @@ customer-build:
       - dist/apps/customer
 
 auth-build:
+  only:
+    changes:
+      - "apps/**"
+      - "lib/**"
   stage: build
   script:
     - yarn
@@ -38,6 +50,9 @@ auth-build:
       - dist/apps/auth
 
 gateway-dockerize:
+  only:
+    changes:
+      - "Dockerfile"
   image: docker:latest
   stage: dockerize
   before_script:
@@ -47,6 +62,9 @@ gateway-dockerize:
     - docker push $CI_REGISTRY_IMAGE/gateway:latest
 
 customer-dockerize:
+  only:
+    changes:
+      - "Dockerfile"
   image: docker:latest
   stage: dockerize
   before_script:
@@ -56,6 +74,9 @@ customer-dockerize:
     - docker push $CI_REGISTRY_IMAGE/customer:latest
 
 auth-dockerize:
+  only:
+    changes:
+      - "Dockerfile"
   image: docker:latest
   stage: dockerize
   before_script:
