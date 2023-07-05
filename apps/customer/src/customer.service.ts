@@ -16,57 +16,36 @@ export class CustomerService {
   }
 
   async createCustomer({
-    email,
     name,
+    individual,
+    company,
+    billing,
     password,
-    surname,
-    phoneNumber,
-    customerData,
-    address,
+    email,
+    phone_number,
+    type,
   }: CustomerCreationDto) {
-    try {
-      const user = await this.firebaseService.auth.createUser({
-        displayName: name + ' ' + surname,
-        email,
-        password,
-        phoneNumber,
-      });
+    const user = await this.firebaseService.auth.createUser({
+      displayName: name,
+      email,
+      password,
+      phoneNumber: phone_number,
+    });
 
-      const customer = { individual: undefined, company: undefined };
-
-      switch (customerData.type) {
-        case 'individual':
-          customer.individual = {
-            dob: customerData.dob,
-            first_name: customerData.firstName,
-            last_name: customerData.lastName,
-          };
-          break;
-        case 'company':
-          customer.company = {
-            tax_id: customerData.taxId,
-          };
-          break;
-      }
-
+    const stripeCustomer =
       await this.stripeService.stripe.issuing.cardholders.create({
-        name: name + surname,
-        phone_number: phoneNumber,
+        name,
+        individual,
+        company,
+        billing,
         email,
-        billing: { address },
-        type: customerData.type,
-        status: 'inactive',
+        phone_number,
+        type,
         metadata: {
           uid: user.uid,
         },
-        ...customer,
       });
 
-      return {
-        message: 'success',
-      };
-    } catch (error) {
-      throw error;
-    }
+    return { stripeCustomer, user };
   }
 }

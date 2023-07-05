@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "dotenv": "^16.3.1",
     "firebase-admin": "^11.9.0",
+    "graphql-type-json": "^0.3.2",
     "nats": "^2.15.1",
     "nestjs-stripe": "^1.0.0",
     "reflect-metadata": "^0.1.13",

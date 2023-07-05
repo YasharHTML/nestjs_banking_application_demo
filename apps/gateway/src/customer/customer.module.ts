@@ -16,7 +16,7 @@ import { ConfigService } from '@nestjs/config';
           transport: Transport.NATS,
           options: {
             servers: configService.get<string>('NATS_URL'),
-            queue: "customer_queue"
+            queue: 'customer_queue',
           },
         }),
       },
